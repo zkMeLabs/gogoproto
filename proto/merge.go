@@ -257,8 +257,12 @@ func (p *descriptorProcessor) collectFDs() {
 		p.fds = append(p.fds, fd)
 	}
 
-	slices.SortFunc(p.fds, func(x, y *descriptorpb.FileDescriptorProto) bool {
-		return *x.Name < *y.Name
+	slices.SortFunc(p.fds, func(x, y *descriptorpb.FileDescriptorProto) int {
+		if *x.Name < *y.Name {
+			return 1
+		} else {
+			return 0
+		}
 	})
 }
 
